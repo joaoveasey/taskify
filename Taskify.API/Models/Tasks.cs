@@ -1,6 +1,6 @@
 ﻿namespace Taskify.API.Models
 {
-    public class Task
+    public class Tasks
     {
         public int Id { get; set; }
         public string? Titulo { get; set; }

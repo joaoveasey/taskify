@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Taskify.API.Infra;
+using Taskify.API.Interfaces;
+using Taskify.API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// injeção de dependencia
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+
 // contexto do banco de dados
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     var connection = builder.Configuration.GetConnectionString("Default");
-    var serverVersion = new MySqlServerVersion(new Version(7, 0));
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
     options.UseMySql(connection, serverVersion);
 });
 

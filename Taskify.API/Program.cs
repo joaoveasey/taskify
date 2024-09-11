@@ -24,6 +24,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connection, serverVersion);
 });
 
+// configurando annotations nos endpoints do swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

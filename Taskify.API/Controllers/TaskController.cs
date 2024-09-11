@@ -100,5 +100,18 @@ namespace Taskify.API.Controllers
 
             return Ok(tasks);
         }
+
+        [HttpGet("filter/status")]
+        [SwaggerOperation(Summary = "Filtra tarefas por status.", 
+                          Description = "Concluída = true \n\n Não Concluída = false")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByStatus(bool status)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByStatusAsync(status);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
     }
 }

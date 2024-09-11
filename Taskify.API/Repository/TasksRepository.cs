@@ -65,5 +65,12 @@ namespace Taskify.API.Repository
 
             return tasks;
         }
+
+        async Task<IEnumerable<Tasks>> ITasksRepository.FilterByStatusAsync(bool status)
+        {
+            var tasks = await _context.Tasks.Where(t => t.Concluida == status).ToListAsync();
+
+            return tasks;
+        }
     }
 }

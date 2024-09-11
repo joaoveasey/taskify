@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // injeção de dependencia
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // contexto do banco de dados
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

@@ -51,5 +51,12 @@ namespace Taskify.API.Repository
 
             return task;
         }
+
+        async Task<IEnumerable<Tasks>> ITasksRepository.FilterByDateAsync(DateTime date)
+        {
+            var tasks = await _context.Tasks.Where(t => t.DataVencimento == date).ToListAsync();
+
+            return tasks;
+        }
     }
 }

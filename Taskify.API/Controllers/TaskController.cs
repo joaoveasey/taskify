@@ -76,5 +76,17 @@ namespace Taskify.API.Controllers
 
             return Ok(removedTask);
         }
+
+        [HttpGet("filter/due-date")]
+        [SwaggerOperation(Summary = "Filtra tarefas por data de vencimento.")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByDate(DateTime date)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByDateAsync(date);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
     }
 }

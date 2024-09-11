@@ -58,5 +58,12 @@ namespace Taskify.API.Repository
 
             return tasks;
         }
+
+        async Task<IEnumerable<Tasks>> ITasksRepository.FilterByPriorityAsync(string priority)
+        {
+            var tasks = await _context.Tasks.Where(t => t.Prioridade == priority).ToListAsync();
+
+            return tasks;
+        }
     }
 }

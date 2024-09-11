@@ -88,5 +88,17 @@ namespace Taskify.API.Controllers
 
             return Ok(tasks);
         }
+
+        [HttpGet("filter/priority")]
+        [SwaggerOperation(Summary = "Filtra tarefas por prioridade.")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByPriority(string priority)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByPriorityAsync(priority);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
     }
 }

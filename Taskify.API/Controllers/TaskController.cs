@@ -76,5 +76,42 @@ namespace Taskify.API.Controllers
 
             return Ok(removedTask);
         }
+
+        [HttpGet("filter/due-date")]
+        [SwaggerOperation(Summary = "Filtra tarefas por data de vencimento.")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByDate(DateTime date)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByDateAsync(date);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
+
+        [HttpGet("filter/priority")]
+        [SwaggerOperation(Summary = "Filtra tarefas por prioridade.")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByPriority(string priority)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByPriorityAsync(priority);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
+
+        [HttpGet("filter/status")]
+        [SwaggerOperation(Summary = "Filtra tarefas por status.", 
+                          Description = "Concluída = true \n\n Não Concluída = false")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByStatus(bool status)
+        {
+            var tasks = await _unitOfWork.TasksRepository.FilterByStatusAsync(status);
+
+            if (tasks is null)
+                return NotFound("Nenhuma tarefa encontrada.");
+
+            return Ok(tasks);
+        }
     }
 }

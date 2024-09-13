@@ -67,14 +67,16 @@ namespace Taskify.API.Controllers
 
         [HttpDelete]
         [SwaggerOperation(Summary = "Remove uma tarefa existente.")]
-        public async Task<ActionResult<Tasks>> RemoveTask(Tasks task)
+        public async Task<ActionResult<Tasks>> RemoveTask(int id)
         {
-            var removedTask = await _unitOfWork.TasksRepository.RemoveAsync(task);
+            var task = await _unitOfWork.TasksRepository.GetByIdAsync(id);
 
-            if (removedTask is null)
+            if (task is null)
                 return BadRequest("Erro ao remover tarefa.");
 
-            return Ok(removedTask);
+            await _unitOfWork.TasksRepository.RemoveAsync(task);
+
+            return Ok(task);
         }
 
         [HttpGet("filter/due-date")]

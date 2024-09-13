@@ -60,5 +60,28 @@ namespace Taskify.API.Controllers
             return Unauthorized();
         }
 
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterModelDTO modelDTO)
+        {
+            var userExists = await _userManager.FindByNameAsync(modelDTO.Username!);
+
+            if (userExists != null)
+                return BadRequest("User already exists!");
+
+            ApplicationUser user = new()
+            {
+                Email = modelDTO.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = modelDTO.Username
+            };
+
+            var result = await _userManager.CreateAsync(user, modelDTO.Password);
+
+            if (!result.Succeeded)
+                return BadRequest("Houve um erro ao realizar seu registro: \n" + result.Errors);
+
+            return Ok(new { Username = user.UserName, Email = user.Email });
+        }
     }
 }

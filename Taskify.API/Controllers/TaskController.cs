@@ -23,7 +23,7 @@ namespace Taskify.API.Controllers
         {
             var tasks = await _unitOfWork.TasksRepository.GetAllAsync();
 
-            if (tasks is not null)
+            if (tasks is null)
                 return NotFound("Nenhuma tarefa.");
 
             return Ok(tasks);

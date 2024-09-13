@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Taskify.API.Models.Validations;
 
 namespace Taskify.API.Models
 {
@@ -16,7 +15,6 @@ namespace Taskify.API.Models
 
         [Required(ErrorMessage = "A data de vencimento é obrigatória")]
         [DataType(DataType.Date)]
-        [FutureDateValidation(ErrorMessage = "A data de vencimento não pode ser no passado")]
         public DateTime DataVencimento { get; set; }
 
         [Required(ErrorMessage = "O status da tarefa é obrigatório.")]

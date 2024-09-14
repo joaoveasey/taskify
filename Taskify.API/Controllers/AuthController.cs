@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Taskify.API.Interfaces;
@@ -27,6 +28,7 @@ namespace Taskify.API.Controllers
 
         [HttpPost]
         [Route("login")]
+        [SwaggerOperation(Summary = "Fazer login de usuário.")]
         public async Task<IActionResult> Login([FromBody] LoginModelDTO model)
         {
             var user = await _userManager.FindByNameAsync(model.Username!);
@@ -62,6 +64,8 @@ namespace Taskify.API.Controllers
 
         [HttpPost]
         [Route("register")]
+        [SwaggerOperation(Summary = "Cadastrar um novo usuário.",
+            Description = "Registra um novo usuário no sistema. A senha deve conter pelo menos uma letra maiúscula e um símbolo especial.")]
         public async Task<IActionResult> Register([FromBody] RegisterModelDTO modelDTO)
         {
             var userExists = await _userManager.FindByNameAsync(modelDTO.Username!);
@@ -79,7 +83,7 @@ namespace Taskify.API.Controllers
             var result = await _userManager.CreateAsync(user, modelDTO.Password);
 
             if (!result.Succeeded)
-                return BadRequest("Houve um erro ao realizar seu registro: \n" + result.Errors);
+                return BadRequest("Houve um erro ao realizar seu registro, tente uma senha mais forte \n" + result.Errors);
 
             return Ok(new { Username = user.UserName, Email = user.Email });
         }

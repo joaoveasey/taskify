@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Taskify.API.Interfaces;
@@ -6,6 +7,7 @@ using Taskify.API.Models;
 
 namespace Taskify.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/task")]
     public class TaskController : ControllerBase

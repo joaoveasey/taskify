@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Taskify.API.Interfaces;
@@ -6,6 +7,7 @@ using Taskify.API.Models;
 
 namespace Taskify.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/task")]
     public class TaskController : ControllerBase
@@ -23,7 +25,7 @@ namespace Taskify.API.Controllers
         {
             var tasks = await _unitOfWork.TasksRepository.GetAllAsync();
 
-            if (tasks is not null)
+            if (tasks is null)
                 return NotFound("Nenhuma tarefa.");
 
             return Ok(tasks);

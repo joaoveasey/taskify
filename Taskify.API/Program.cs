@@ -10,6 +10,8 @@ using Taskify.API.Interfaces;
 using Taskify.API.Models;
 using Taskify.API.Repository;
 using Taskify.API.Services;
+using Microsoft.AspNetCore.RateLimiting;
+using Taskify.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var secretKey = builder.Configuration["JWT:SecretKey"] 
@@ -103,6 +105,20 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// configurando o rate limiter para controlar qtd de requisições na api
+builder.Services.AddRateLimiter(RateLimiterOptions =>
+{
+    RateLimiterOptions.AddFixedWindowLimiter("fixedwindow"
+        , options =>
+    {
+        options.PermitLimit = 10; // numeros de requisições permitidas dentro da janela de tempo
+        options.Window = TimeSpan.FromSeconds(10); // define a janela de tempo
+        options.QueueLimit = 2; // define o numero max de requisições q podem ser enfileiradas quando o limite é atingido
+    });
+    RateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -111,6 +127,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<RateLimitMiddleware>();
+app.UseRateLimiter();
 
 app.UseHttpsRedirection();
 

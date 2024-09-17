@@ -82,7 +82,8 @@ namespace Taskify.API.Controllers
         }
 
         [HttpGet("filter/due-date")]
-        [SwaggerOperation(Summary = "Filtra tarefas por data de vencimento.")]
+        [SwaggerOperation(Summary = "Filtra tarefas por data de vencimento.", 
+            Description = "Filtra tarefas baseadas na data de vencimento fornecida no formato yyyy-MM-dd.")]
         public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByDate(DateTime date)
         {
             var tasks = await _unitOfWork.TasksRepository.FilterByDateAsync(date);
@@ -94,7 +95,8 @@ namespace Taskify.API.Controllers
         }
 
         [HttpGet("filter/priority")]
-        [SwaggerOperation(Summary = "Filtra tarefas por prioridade.")]
+        [SwaggerOperation(Summary = "Filtra tarefas por prioridade.",
+            Description = "Filtra tarefas com base na prioridade fornecida: \"Baixa\", \"Média\" ou \"Alta\".")]
         public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByPriority(string priority)
         {
             var tasks = await _unitOfWork.TasksRepository.FilterByPriorityAsync(priority);
@@ -106,8 +108,8 @@ namespace Taskify.API.Controllers
         }
 
         [HttpGet("filter/status")]
-        [SwaggerOperation(Summary = "Filtra tarefas por status.", 
-                          Description = "Concluída = true \n\n Não Concluída = false")]
+        [SwaggerOperation(Summary = "Filtra tarefas por status.",
+            Description = "Filtra tarefas com base no status: Concluída (true) ou Não Concluída (false).")]
         public async Task<ActionResult<IEnumerable<Tasks>>> FilterTasksByStatus(bool status)
         {
             var tasks = await _unitOfWork.TasksRepository.FilterByStatusAsync(status);

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taskify.API.Controllers;
 
-namespace Taskify.API.Test.UnitTests.Tasks.Get
+namespace Taskify.API.Test.UnitTests.Get
 {
     public class GetTaskByPriorityUnitTest : IClassFixture<TasksUnitTestController>
     {
@@ -26,7 +26,7 @@ namespace Taskify.API.Test.UnitTests.Tasks.Get
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()
-                .Which.Value.Should().BeAssignableTo<IEnumerable<Taskify.API.Models.Tasks>>()
+                .Which.Value.Should().BeAssignableTo<IEnumerable<Models.Tasks>>()
                 .And.NotBeNull();
         }
 

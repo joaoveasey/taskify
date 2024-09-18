@@ -7,34 +7,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Taskify.API.Controllers;
 
-namespace Taskify.API.Test.UnitTests.Tasks
+namespace Taskify.API.Test.UnitTests.Get
 {
-    public class DeleteTasksUnitTest : IClassFixture<TasksUnitTestController>
+    public class GetTaskByIdUnitTest : IClassFixture<TasksUnitTestController>
     {
         private readonly TaskController _controller;
 
-        public DeleteTasksUnitTest(TasksUnitTestController controller)
+        public GetTaskByIdUnitTest(TasksUnitTestController controller)
         {
             _controller = new TaskController(controller.repository);
         }
 
         [Fact]
-        public async Task DeleteTask_ReturnsOk()
+        public async Task GetTaskById_WhenCalled_ReturnsItem()
         {
             // act
-            var result = await _controller.RemoveTask(1);
+            var result = await _controller.GetTaskById(1);
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()
-                .Which.Value.Should().BeAssignableTo<Taskify.API.Models.Tasks>()
+                .Which.Value.Should().BeAssignableTo<Models.Tasks>()
                 .And.NotBeNull();
         }
 
         [Fact]
-        public async Task DeleteTask_ReturnsNotFound()
+        public async Task GetTaskById_WhenCalled_ReturnsNotFound()
         {
             // act
-            var result = await _controller.RemoveTask(0);
+            var result = await _controller.GetTaskById(999999);
 
             // assert
             result.Result.Should().BeOfType<NotFoundResult>()

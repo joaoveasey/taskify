@@ -7,28 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using Taskify.API.Controllers;
 
-namespace Taskify.API.Test.UnitTests.Tasks
+namespace Taskify.API.Test.UnitTests.Get
 {
-    public class PostTasksUnitTest : IClassFixture<TasksUnitTestController>
+    public class GetAllTasksUnitTest : IClassFixture<TasksUnitTestController>
     {
         private readonly TaskController _controller;
 
-        public PostTasksUnitTest(TasksUnitTestController controller)
+        public GetAllTasksUnitTest(TasksUnitTestController controller)
         {
             _controller = new TaskController(controller.repository);
         }
 
         [Fact]
-        public async Task PostTask_ReturnsOk()
+        public async Task GetAllTasks_WhenCalled_ReturnsAllItems()
         {
             // act
-            var result = await _controller.AddTask(new Taskify.API.Models.Tasks 
-            { Titulo = "Task 1", Descricao = "Task 1", DataVencimento = DateTime.Now, Concluida = false });
+            var result = await _controller.GetAllTasks();
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()
-                .Which.Value.Should().BeAssignableTo<Taskify.API.Models.Tasks>()
+                .Which.Value.Should().BeAssignableTo<IEnumerable<Models.Tasks>>()
                 .And.NotBeNull();
         }
+
     }
 }

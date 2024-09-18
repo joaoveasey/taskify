@@ -59,14 +59,22 @@ Bearer seu_token_gerado
 - Após autorizar, você poderá usar os endpoints de Tasks.
 
 ## 🧪 Testes Unitários
-Os testes foram implementados utilizando o XUnit. Para rodar os testes, basta executar o seguinte comando no terminal:
+Os testes foram implementados utilizando xUnit para garantir a qualidade e o funcionamento adequado do sistema. Para executar os testes, siga os passos abaixo:
+
+- No arquivo TasksUnitTestController, ajuste a connectionString com os parâmetros do seu banco de dados:
+````csharp
+public static string connectionString =
+    "Server=;Port=;User ID=;Password=;Database=";
+````
+### Executando os Testes:
+- Utilize o seguinte comando no terminal para rodar todos os testes unitários:
 ````bash
 dotnet test
 ````
-
 ### 📋 Cenários Testados
+
 #### 🔖 Tasks
-- ✅ Criar uma tarefa;
+- ✅ Criar uma tarefa
 - ✅ Editar uma tarefa
 - ✅ Deletar uma tarefa
 - ✅ Listar tarefas
@@ -74,6 +82,3 @@ dotnet test
 - ✅ Filtrar tarefas por data de vencimento
 - ✅ Filtrar tarefas por prioridade
 - ✅ Filtrar tarefas por status e data de vencimento
-#### 👤 Criação de Usuário
-- ✅ Logar com um usuário
-- ✅ Registrar usuário

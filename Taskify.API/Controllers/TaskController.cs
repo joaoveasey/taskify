@@ -103,7 +103,7 @@ namespace Taskify.API.Controllers
         {
             var tasks = await _unitOfWork.TasksRepository.FilterByPriorityAsync(priority);
 
-            if (tasks is null)
+            if (tasks is null || priority is null || priority != "Baixa" && priority != "Média" && priority != "Alta")
                 return NotFound("Nenhuma tarefa encontrada.");
 
             return Ok(tasks);

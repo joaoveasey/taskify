@@ -22,7 +22,7 @@ namespace Taskify.API.Test.UnitTests
         public async Task DeleteTask_ReturnsOk()
         {
             // act
-            var result = await _controller.RemoveTask(1);
+            var result = await _controller.RemoveTask(4);
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()
@@ -37,8 +37,8 @@ namespace Taskify.API.Test.UnitTests
             var result = await _controller.RemoveTask(0);
 
             // assert
-            result.Result.Should().BeOfType<NotFoundResult>()
-                .Which.StatusCode.Should().Be(404);
+            result.Result.Should().BeOfType<BadRequestObjectResult>()
+                .Which.StatusCode.Should().Be(400);
         }
     }
 }

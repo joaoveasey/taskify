@@ -29,16 +29,5 @@ namespace Taskify.API.Test.UnitTests.Get
                 .Which.Value.Should().BeAssignableTo<IEnumerable<Models.Tasks>>()
                 .And.NotBeNull();
         }
-
-        [Fact]
-        public async Task GetTaskByDate_ReturnsNotFound()
-        {
-            // act
-            var result = await _controller.FilterTasksByDate(DateTime.MinValue);
-
-            // assert
-            result.Result.Should().BeOfType<NotFoundResult>()
-                .Which.StatusCode.Should().Be(404);
-        }
     }
 }

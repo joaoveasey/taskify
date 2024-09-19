@@ -34,10 +34,10 @@ namespace Taskify.API.Test.UnitTests.Get
         public async Task GetTaskByPriority_ReturnsNotFound()
         {
             // act
-            var result = await _controller.FilterTasksByPriority(null);
+            var result = await _controller.FilterTasksByPriority("teste");
 
             // assert
-            result.Result.Should().BeOfType<NotFoundResult>()
+            result.Result.Should().BeOfType<NotFoundObjectResult>()
                 .Which.StatusCode.Should().Be(404);
         }
     }

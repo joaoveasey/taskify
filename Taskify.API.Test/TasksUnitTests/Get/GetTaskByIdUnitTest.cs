@@ -22,7 +22,7 @@ namespace Taskify.API.Test.UnitTests.Get
         public async Task GetTaskById_WhenCalled_ReturnsItem()
         {
             // act
-            var result = await _controller.GetTaskById(1);
+            var result = await _controller.GetTaskById(4);
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()
@@ -37,7 +37,7 @@ namespace Taskify.API.Test.UnitTests.Get
             var result = await _controller.GetTaskById(999999);
 
             // assert
-            result.Result.Should().BeOfType<NotFoundResult>()
+            result.Result.Should().BeOfType<NotFoundObjectResult>()
                 .Which.StatusCode.Should().Be(404);
         }
     }

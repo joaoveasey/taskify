@@ -23,7 +23,7 @@ namespace Taskify.API.Test.UnitTests
         {
             // act
             var result = await _controller.AddTask(new Models.Tasks
-            { Titulo = "Task 1", Descricao = "Task 1", DataVencimento = DateTime.Now, Concluida = false });
+            { Titulo = "Task 1", Descricao = "Task 1", DataVencimento = DateTime.Now, Concluida = false, Prioridade = "Média" });
 
             // assert
             result.Result.Should().BeOfType<OkObjectResult>()

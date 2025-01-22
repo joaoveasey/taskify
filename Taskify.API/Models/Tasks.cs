@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Taskify.API.Models
 {
@@ -18,6 +19,7 @@ namespace Taskify.API.Models
         public DateTime DataVencimento { get; set; }
 
         [Required(ErrorMessage = "O status da tarefa é obrigatório.")]
+        [DefaultValue(false)]
         public bool Concluida { get; set; }
 
         [Required(ErrorMessage = "A prioridade é obrigatória.")]

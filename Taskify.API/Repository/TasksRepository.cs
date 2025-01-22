@@ -30,7 +30,7 @@ namespace Taskify.API.Repository
         public async Task<Tasks> AddAsync(Tasks task)
         {
             await _context.AddAsync(task);
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return task;
         }
@@ -38,7 +38,7 @@ namespace Taskify.API.Repository
         public async Task<Tasks> UpdateAsync(Tasks task)
         {
             _context.Update(task);
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return task;
         }
@@ -46,7 +46,7 @@ namespace Taskify.API.Repository
         public async Task<Tasks> RemoveAsync(Tasks task)
         {
             _context.Remove(task);
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return task;
         }
